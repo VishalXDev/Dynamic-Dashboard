@@ -13,7 +13,7 @@ import SearchBar from "./SearchBar";
 import { Widget as WidgetType } from "../../types/dashboard"; 
 
 interface SortableWidgetProps {
-  widget: WidgetType & { createdAt: string; updatedAt: string; categoryId: string };
+  widget: WidgetType & { categoryId: string };
   onRemove: () => void;
   onPinToggle: () => void;
   onCheckToggle: () => void;
@@ -101,8 +101,8 @@ const DashboardLayout = () => {
                     widget={{
                       ...widget,
                       categoryId: category.id,
-                      createdAt: widget.createdAt || "",
-                      updatedAt: widget.updatedAt || "",
+                      createdAt: widget.createdAt || "", // Fallback to empty string if not available
+                      updatedAt: widget.updatedAt || "", // Fallback to empty string if not available
                     }}
                     onRemove={() => removeWidget(category.id, widget.id)}
                     onPinToggle={() => togglePinWidget(category.id, widget.id)}

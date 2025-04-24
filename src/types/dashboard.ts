@@ -1,5 +1,3 @@
-// src/types/dashboard.ts
-
 type WidgetType = 'chart' | 'image' | 'text' | 'other'; // Adjust based on widget types you plan to use
 
 export interface Widget {
@@ -11,8 +9,8 @@ export interface Widget {
   icon?: string; // Optional icon for the widget (URL or class name)
   type?: WidgetType; // Type of the widget (e.g., 'chart', 'image', 'text', 'other')
   categoryId: string; // ✅ Needed for drag/drop within categories
-  createdAt: string; // Added optional createdAt property
-  updatedAt: string; // Added optional updatedAt property
+  createdAt?: string; // Optional createdAt property
+  updatedAt?: string; // Optional updatedAt property
 }
 
 export interface Category {

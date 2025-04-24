@@ -22,15 +22,11 @@ const Dashboard = () => {
     setSearch(searchQuery);
   }, [searchQuery, setSearch]);
 
-
-  const pinnedWidgets: (Widget & { categoryId: string; createdAt: string; updatedAt: string })[] = categories.flatMap((cat) =>
+  const pinnedWidgets: (Widget & { categoryId: string })[] = categories.flatMap((cat) =>
         cat.widgets.filter((widget) => widget.pinned).map((widget) => ({
           ...widget,
           categoryId: cat.id,
-          createdAt: widget.createdAt || "",
-          updatedAt: widget.updatedAt || "",
-        }))
-      );
+        })));
 
   // Remove pinned widgets from category widgets
   const getCategoryWidgets = (categoryId: string) => {
@@ -49,7 +45,7 @@ const Dashboard = () => {
           {pinnedWidgets.map((widget: Widget) => (
             <WidgetCard
               key={widget.id}
-              widget={widget}
+              widget={{ ...widget, createdAt: widget.createdAt ?? "", updatedAt: widget.updatedAt ?? "" }}
               onRemove={() => removeWidget(widget.categoryId, widget.id)}
               onPinToggle={() => togglePinWidget(widget.categoryId, widget.id)}
               onCheckToggle={() =>
@@ -71,7 +67,11 @@ const Dashboard = () => {
             {getCategoryWidgets(cat.id).map((widget: Widget) => (
               <WidgetCard
                 key={widget.id}
-                widget={widget}
+                widget={{
+                  ...widget,
+                  createdAt: widget.createdAt ?? "",
+                  updatedAt: widget.updatedAt ?? "",
+                }}
                 onRemove={() => removeWidget(cat.id, widget.id)}
                 onPinToggle={() => togglePinWidget(cat.id, widget.id)}
                 onCheckToggle={() => toggleCheckWidget(cat.id, widget.id)}
