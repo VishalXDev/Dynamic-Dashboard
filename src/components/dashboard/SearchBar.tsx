@@ -1,23 +1,27 @@
-import React from "react";
-import  Input  from "../common/Input";
+import { useEffect, useRef } from 'react';
 
 interface SearchBarProps {
   searchQuery: string;
-  setSearchQuery: (query: string) => void;
+  setSearchQuery: (value: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery }) => {
+export default function SearchBar({ searchQuery, setSearchQuery }: SearchBarProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
-    <div className="mb-4 w-full max-w-md">
-      <Input
+    <div className="mb-4">
+      <input
+        ref={inputRef}
         type="text"
-        placeholder="Search widgets..."
+        placeholder="Search Widgets..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full"
+        className="p-2 border rounded-md w-full"
       />
     </div>
   );
-};
-
-export default SearchBar;
+}

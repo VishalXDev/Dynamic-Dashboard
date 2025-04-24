@@ -5,11 +5,16 @@ import Input from "../common/Input";
 
 const AddCategory: React.FC = () => {
   const [name, setName] = useState<string>("");
-  const addCategory = useDashboardStore((state) => state.addCategory);
+  const { addCategory, categories } = useDashboardStore();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim()) {
+      // Check if category name is unique
+      if (categories.some((category) => category.name.toLowerCase() === name.toLowerCase())) {
+        alert("Category name already exists.");
+        return;
+      }
       addCategory(name.trim());
       setName("");  // Reset the name field after submission
     }

@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { useDashboardStore } from "../../store/useDashboardStore";
 import Button from "../common/Button";
-import { downloadJSON } from "../../utils/exportJSON";
+import { downloadJSON } from "../../utils/exportJSON"; // Corrected import
 import { Category } from "../../types/dashboard";
 
 const DashboardHeaderControls = () => {
@@ -17,6 +17,7 @@ const DashboardHeaderControls = () => {
         const imported = JSON.parse(event.target?.result as string);
         if (Array.isArray(imported)) {
           setCategories(imported as Category[]);
+          alert("Categories imported successfully!");
         } else {
           alert("Invalid JSON format.");
         }
